@@ -72,5 +72,10 @@ namespace QuantConnect.Lean.Engine.DataFeeds
 
             return null;
         }
+
+        public void Store(string key, Stream stream)
+        {
+
+        }
     }
 }

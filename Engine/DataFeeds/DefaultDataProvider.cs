@@ -49,5 +49,10 @@ namespace QuantConnect.Lean.Engine.DataFeeds
         {
             //
         }
+
+        public void Store(string key, Stream stream)
+        {
+
+        }
     }
 }

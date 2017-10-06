@@ -79,6 +79,12 @@ namespace QuantConnect.Lean.Engine.DataFeeds
                     {
                         var dataStream = _dataProvider.Fetch(filename);
 
+                        //  If it is MemoryStream, return it directly
+                        if (dataStream.GetType().IsInstanceOfType(new MemoryStream()))
+                        {
+                            return dataStream;
+                        }
+
                         if (dataStream != null)
                         {
                             try
@@ -202,6 +208,8 @@ namespace QuantConnect.Lean.Engine.DataFeeds
             {
                 var stream = new MemoryStream();
                 entry.OpenReader().CopyTo(stream);
+                // Store csv content into Redis if the key does not exist
+                _dataProvider.Store("20131007:spy:minute:trade", entry.OpenReader());
                 stream.Position = 0;
                 return stream;
             }

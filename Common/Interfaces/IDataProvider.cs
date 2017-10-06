@@ -32,5 +32,7 @@ namespace QuantConnect.Interfaces
         /// <param name="key">A string representing where the data is stored</param>
         /// <returns>A <see cref="Stream"/> of the data requested</returns>
         Stream Fetch(string key);
+
+        void Store(string key, Stream stream);
     }
 }
