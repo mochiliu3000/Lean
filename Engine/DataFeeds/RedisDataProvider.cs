@@ -31,9 +31,8 @@ namespace QuantConnect.Lean.Engine.DataFeeds
         /// for instance "20131007:spy:minute:trade". The corresponding Csv is "20131004_spy_minute_trade.csv". 
         /// The corresponding Zipfile is "../../../Data/equity\\usa\\minute\\spy\\20131004_trade.zip"</param>
         /// <returns>A <see cref="Stream"/> of the data requested</returns>
-        public Stream Fetch(string oldkey)
+        public Stream Fetch(string key)
         {
-            var key = "20131007:spy:minute:trade";
             try
             {
                 using (var redis = _redisManager.GetClient())
@@ -59,7 +58,6 @@ namespace QuantConnect.Lean.Engine.DataFeeds
                     {
                         Log.Trace("RedisDataProvider.Fetch(): Found the specified Key-Value in Redis: {0}", key);
                         var content = redisCsvObj.GetValue(key).Content;
-                        // TODO: memorystream should be iteratable, hence need to be split by '\n'??? or the following code can handle this
                         return new MemoryStream(Encoding.UTF8.GetBytes(content));
                     }
                 }
@@ -105,6 +103,7 @@ namespace QuantConnect.Lean.Engine.DataFeeds
         private string GenerateFileName(string key)
         {
             // 20131004:spy:minute:trade => ../../../Data/equity\\usa\\minute\\spy\\20131004_trade.zip
+            // TODO: the zipfile name is different for different type
             string[] keys = key.Split(':');
             if (keys.Length != 4)
             {

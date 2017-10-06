@@ -509,8 +509,10 @@ namespace QuantConnect.Data.Market
             {
                 return new SubscriptionDataSource(string.Empty, SubscriptionTransportMedium.LocalFile);
             }
-
-            var source = LeanData.GenerateZipFilePath(Globals.DataFolder, config.Symbol, date, config.Resolution, config.TickType);
+            // Generate Redis Key - Timestamp:Name:Resolution:Type
+            // TODO: read config to decide when to use this GenerateRedisKey
+            var source = LeanData.GenerateRedisKey(config.Symbol, date, config.Resolution, config.TickType);
+            //var source = LeanData.GenerateZipFilePath(Globals.DataFolder, config.Symbol, date, config.Resolution, config.TickType);
             if (config.SecurityType == SecurityType.Option ||
                 config.SecurityType == SecurityType.Future)
             {

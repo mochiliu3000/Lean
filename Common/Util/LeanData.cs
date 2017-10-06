@@ -774,5 +774,15 @@ namespace QuantConnect.Util
 
             return true;
         }
+
+        // TODO: for different type may have different name
+        public static string GenerateRedisKey(Symbol symbol, DateTime date, Resolution resolution, TickType tickType)
+        {
+            var symbolString = symbol.ID.Symbol.ToLower();
+            var tickTypeString = tickType.ToLower();
+            var formattedDate = date.ToString(DateFormat.EightCharacter);
+            var resolutionString = resolution.ToLower();
+            return formattedDate + ":" + symbolString + ":" + resolutionString + ":" + tickTypeString;
+        }
     }
 }

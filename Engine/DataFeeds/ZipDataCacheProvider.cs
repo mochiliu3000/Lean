@@ -62,7 +62,8 @@ namespace QuantConnect.Lean.Engine.DataFeeds
             }
 
             // handles zip files
-            if (filename.GetExtension() == ".zip")
+            // handles Redis key also
+            if (filename.GetExtension() == ".zip" || filename.Contains(':'))
             {
                 Stream stream = null;
 
@@ -209,7 +210,8 @@ namespace QuantConnect.Lean.Engine.DataFeeds
                 var stream = new MemoryStream();
                 entry.OpenReader().CopyTo(stream);
                 // Store csv content into Redis if the key does not exist
-                _dataProvider.Store("20131007:spy:minute:trade", entry.OpenReader());
+                // TODO: May have hard coding here
+                _dataProvider.Store(Path.GetFileNameWithoutExtension(entry.FileName).Replace('_', ':'), entry.OpenReader());
                 stream.Position = 0;
                 return stream;
             }
