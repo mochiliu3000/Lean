@@ -53,13 +53,17 @@ namespace QuantConnect.Algorithm.CSharp
 			// wait for our indicators to ready
 			if (!Fast.IsReady || !Slow.IsReady) return;
 
+
 			if (Fast > Slow * 1.001m)
 			{
 				SetHoldings("SPY", 1);
 			}
 			else if (Fast < Slow * 0.999m)
 			{
-				Liquidate("SPY");
+                if (Portfolio.Invested)
+                {
+                    Liquidate("SPY");
+                }
 			}
 		}
 

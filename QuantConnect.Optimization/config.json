@@ -13,8 +13,8 @@
   "algorithm-type-name": "ParameterAlgorithm",
 
   // parameters
-  "FastPeriod": "100:200:20",
-  "SlowPeriod": "150:250:20",
+  "FastPeriod": "2:8:4",
+  "SlowPeriod": "50:100:10",
 
   // Algorithm language selector - options CSharp, FSharp, VisualBasic, Python, Java
   "algorithm-language": "CSharp",

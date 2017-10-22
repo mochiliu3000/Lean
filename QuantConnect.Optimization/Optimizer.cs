@@ -10,7 +10,7 @@ using QuantConnect.Packets;
 using QuantConnect.Logging;
 using System.Collections.Concurrent;
 using QuantConnect.Util;
-
+using System.Runtime.CompilerServices;
 
 namespace QuantConnect.Optimization
 {
@@ -52,6 +52,7 @@ namespace QuantConnect.Optimization
                 Thread workerThread = new Thread(worker.Run) { IsBackground = true, Name = "WorkerThread" + i++ };            
                 workerThread.Start();
                 workerList.Add(worker);
+                Thread.Sleep(5 * 1000);
             }
 
             // 4. Summarize the statistics

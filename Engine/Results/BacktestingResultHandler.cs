@@ -719,8 +719,8 @@ namespace QuantConnect.Lean.Engine.Results
             if (!_exitTriggered)
             {
                 ProcessSynchronousEvents(true);
-                var logLocation = SaveLogs(_job.BacktestId, _log);
-                SystemDebugMessage("Your log was successfully created and can be retrieved from: " + logLocation);
+                //var logLocation = SaveLogs(_job.BacktestId, _log);
+                //SystemDebugMessage("Your log was successfully created and can be retrieved from: " + logLocation);
             }
 
             //Set exit flag, and wait for the messages to send:

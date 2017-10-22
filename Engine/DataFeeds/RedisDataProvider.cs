@@ -11,7 +11,7 @@ using Ionic.Crc;
 
 namespace QuantConnect.Lean.Engine.DataFeeds
 {
-    class RedisDataProvider : IDataProvider
+    public class RedisDataProvider : IDataProvider
     {
         // TODO: put this in config file
         // TODO: this may not in folder "usa"

@@ -22,6 +22,7 @@ using QuantConnect.Interfaces;
 using QuantConnect.Logging;
 using QuantConnect.Packets;
 using QuantConnect.Util;
+using System.Threading;
 
 namespace QuantConnect.Queues
 {
@@ -177,6 +178,7 @@ namespace QuantConnect.Queues
         {
             // Make the console window pause so we can read log output before exiting and killing the application completely
             Console.WriteLine("Engine.Main(): Analysis Complete. Press any key to continue.");
+            //Thread.Sleep(1000);
             System.Console.Read();
         }
     }
