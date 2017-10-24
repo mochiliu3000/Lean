@@ -32,6 +32,7 @@ namespace QuantConnect.Algorithm.CSharp
                 // 2. Deserilize message content 
                 _parameters.Deserilize(parameterMsg);
 
+                // 3. Set algo params
                 SetStartDate(2013, 10, 07);
                 SetEndDate(2013, 10, 11);
                 SetCash(100 * 1000);

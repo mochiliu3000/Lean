@@ -36,7 +36,7 @@ namespace QuantConnect.Optimization
             // 2. Generete all the possible parameters sets
             _parameterSet = GenerateParameterSpace();
 
-            // 3. Concurrently running all parameters sets
+            // 3. Concurrently publishing all parameters sets & start worker to handle them
             if (_parameterSet.Count == 0)
             {
                 Log.Trace("No parameter set to run, Exit!");
