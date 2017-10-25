@@ -94,7 +94,7 @@ namespace QuantConnect.Messaging
 
                 case PacketType.BacktestResult:
                     var result = (BacktestResultPacket) packet;
-
+                    var statMessage = "";
                     if (result.Progress == 1)
                     {
                         // uncomment these code traces to help write regression tests
@@ -103,10 +103,14 @@ namespace QuantConnect.Messaging
                         foreach (var pair in result.Results.Statistics)
                         {
                             Log.Trace("STATISTICS:: " + pair.Key + " " + pair.Value);
+                            statMessage += pair.Key + ":" + pair.Value + Environment.NewLine;
                             //Console.WriteLine("\t\t\t\t{{\"{0}\",\"{1}\"}},", pair.Key, pair.Value);
                         }
                         //Console.WriteLine("\t\t\t};");
 
+                        var message = String.Format("========== {0} =========={1}{2}", result.BacktestId, Environment.NewLine, statMessage);
+                        RabbitmqHandler rabbitmqHandler = new RabbitmqHandler();
+                        rabbitmqHandler.Publish(message, "log_queue");
                         //foreach (var pair in statisticsResults.RollingPerformances)
                         //{
                         //    Log.Trace("ROLLINGSTATS:: " + pair.Key + " SharpeRatio: " + Math.Round(pair.Value.PortfolioStatistics.SharpeRatio, 3));
