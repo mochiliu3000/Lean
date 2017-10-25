@@ -30,13 +30,16 @@ namespace QuantConnect.Configuration
     public static class Config
     {
         //Location of the configuration file.
-        private const string ConfigurationFileName = "config.json";
+        private static readonly string AppRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        private static readonly string ConfigurationFileName = Path.Combine(AppRoot, "config.json");
 
         private static readonly Lazy<JObject> Settings = new Lazy<JObject>(() =>
         {
             // initialize settings inside a lazy for free thread-safe, one-time initialization
+            Log.Trace(ConfigurationFileName);
             if (!File.Exists(ConfigurationFileName))
             {
+                Log.Error("Config file does not exist !");
                 return new JObject
                 {
                     {"algorithm-type-name", "BasicTemplateAlgorithm"},
@@ -52,7 +55,7 @@ namespace QuantConnect.Configuration
                     {"transaction-handler", "QuantConnect.Lean.Engine.TransactionHandlers.BacktestingTransactionHandler"}
                 };
             }
-
+            Log.Trace("Config file exists !");
             return JObject.Parse(File.ReadAllText(ConfigurationFileName));
         });
 
@@ -94,6 +97,21 @@ namespace QuantConnect.Configuration
             if (key == "environment") return GetEnvironment();
 
             var token = GetToken(Settings.Value, key);
+
+            // Use relative path to get the absolute path of data and dll
+            if (key == "data-folder")
+            {
+                string dataFolder = Path.GetFullPath(AppRoot + token.ToString());
+                Log.Trace(string.Format("Config.Get(): Data folder is: {0}", dataFolder));
+                return dataFolder;
+            }
+            if (key == "algorithm-location")
+            {
+                string algoDllPath = Path.Combine(AppRoot, token.ToString());
+                Log.Trace(string.Format("Config.Get(): Algo dll path is: {0}", algoDllPath));
+                return algoDllPath;
+            }
+
             if (token == null)
             {
                 Log.Trace(string.Format("Config.Get(): Configuration key not found. Key: {0} - Using default value: {1}", key, defaultValue));
