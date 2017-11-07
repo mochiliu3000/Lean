@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="AddRemoveSecurityRegressionAlgorithm.cs" />
     <Compile Include="model\Parameters.cs" />
+    <Compile Include="model\ShortParameters.cs" />
     <Compile Include="ParameterAlgorithm.cs" />
     <Compile Include="RollingWindowAlgorithm.cs" />
     <Compile Include="BasicTemplateDailyAlgorithm.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="ParameterizedAlgorithm.cs" />
     <Compile Include="HourReverseSplitRegressionAlgorithm.cs" />
     <Compile Include="HourSplitRegressionAlgorithm.cs" />
+    <Compile Include="ShortStrategyAlgorithm.cs" />
     <Compile Include="UniverseSelectionDefinitionsAlgorithm.cs" />
     <Compile Include="UserDefinedUniverseAlgorithm.cs" />
     <Compile Include="WarmupAlgorithm.cs" />

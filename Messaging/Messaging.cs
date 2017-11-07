@@ -110,7 +110,7 @@ namespace QuantConnect.Messaging
 
                         var message = String.Format("========== {0} =========={1}{2}", result.BacktestId, Environment.NewLine, statMessage);
                         RabbitmqHandler rabbitmqHandler = new RabbitmqHandler();
-                        rabbitmqHandler.Publish(message, "log_queue");
+                        rabbitmqHandler.Publish(message, "log_queue_test");
                         //foreach (var pair in statisticsResults.RollingPerformances)
                         //{
                         //    Log.Trace("ROLLINGSTATS:: " + pair.Key + " SharpeRatio: " + Math.Round(pair.Value.PortfolioStatistics.SharpeRatio, 3));

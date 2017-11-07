@@ -9,7 +9,8 @@
   "environment": "backtesting", // "live-paper", "backtesting", "live-interactive", "live-interactive-iqfeed"
 
   // algorithm class selector
-  "algorithm-type-name": "ParameterAlgorithm",
+  //"algorithm-type-name": "ParameterAlgorithm",
+  "algorithm-type-name": "ShortStrategyAlgorithm",
 
   // Algorithm language selector - options CSharp, FSharp, VisualBasic, Python, Java
   "algorithm-language": "CSharp",
