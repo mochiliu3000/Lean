@@ -6,10 +6,10 @@
   // two predefined environments, 'backtesting' and 'live', feel free
   // to add more!
 
-  "environment": "backtesting", // "live-paper", "backtesting", "live-interactive", "live-interactive-iqfeed"
+  "environment": "live-gdax", // "live-paper", "backtesting", "live-interactive", "live-interactive-iqfeed"
 
   // algorithm class selector
-  "algorithm-type-name": "BasicTemplateFrameworkAlgorithm",
+  "algorithm-type-name": "GdaxAlgorithm",
 
   // Algorithm language selector - options CSharp, FSharp, VisualBasic, Python, Java
   "algorithm-language": "CSharp",
@@ -93,9 +93,9 @@
   "iqfeed-version": "1.0",
 
   // gdax configuration
-  "gdax-api-secret": "",
-  "gdax-api-key": "",
-  "gdax-passphrase": "",
+  "gdax-api-secret": "PeoMwhjuc6+gru+/bnu5hmZrYchaTJxtfaHuzsqUfoJuzVKHo6aYogg5a+oi/wlMw/Q02AmqmJX9HhCw4T7vsQ==",
+  "gdax-api-key": "f809563d5cec626e8bbf550bd7b4f50a",
+  "gdax-passphrase": "chi81y3y2uu",
 
   // Intrinio account user and password
   "intrinio-username": "",
