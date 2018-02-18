@@ -105,7 +105,8 @@ namespace QuantConnect.Logging
         {
             if (_useTimestampPrefix)
             {
-                return string.Format("{0} {1}:: {2}", DateTime.UtcNow.ToString("o"), level, text);
+                // return string.Format("{0} {1}:: {2}", DateTime.UtcNow.ToString("o"), level, text);
+                return text;
             }
             return string.Format("{0}:: {1}", level, text);
         }
@@ -117,9 +118,12 @@ namespace QuantConnect.Logging
         {
             lock (_lock)
             {
-                if (_disposed) return;
-                _writer.Value.WriteLine(CreateMessage(text, level));
-                _writer.Value.Flush();
+                if (level.Equals("ERROR"))
+                {
+                    if (_disposed) return;
+                    _writer.Value.WriteLine(CreateMessage(text, level));
+                    _writer.Value.Flush();
+                }
             }
         }
     }
