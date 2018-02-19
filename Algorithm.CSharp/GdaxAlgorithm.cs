@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Text;
 using QuantConnect.Data;
 using QuantConnect.Data.Consolidators;
 using QuantConnect.Data.Market;
 using QuantConnect.Indicators;
+using RabbitMQ.Client;
 
 namespace QuantConnect.Algorithm.CSharp
 {
@@ -12,6 +14,7 @@ namespace QuantConnect.Algorithm.CSharp
         //private Symbol _btc = QuantConnect.Symbol.Create("SPY", SecurityType.Equity, Market.USA);
 
         private static string Seperator = ",";
+        private ConnectionFactory connFactory = new ConnectionFactory() { HostName = "localhost" };
 
         private ExponentialMovingAverage _ema27;
         private RelativeStrengthIndex _rsi6;
@@ -26,7 +29,7 @@ namespace QuantConnect.Algorithm.CSharp
             SetEndDate(2013, 10, 11);    //Set End Date
             AddEquity("SPY", Resolution.Tick);
             */
-           
+
             AddCrypto("BTCUSD", Resolution.Tick, Market.GDAX);
 
             var consolidator15s = new TickConsolidator(TimeSpan.FromSeconds(15));
@@ -56,13 +59,42 @@ namespace QuantConnect.Algorithm.CSharp
         public void OnDataConsolidated(object sender, TradeBar consolidated)
         {
             Log("OnDataConsolidated called");
-            Error(
-                consolidated.Time.ToString() + Seperator + consolidated.Open.ToString() + Seperator
+            var messageBody = consolidated.Time.ToString() + Seperator + consolidated.Open.ToString() + Seperator
                 + consolidated.High.ToString() + Seperator + consolidated.Low.ToString() + Seperator
                 + consolidated.Close.ToString() + Seperator + consolidated.Volume.ToString() + Seperator
-                + _ema27 + Seperator + _rsi6 + Seperator + _rsi12 + Seperator + _rsi24 + Seperator 
-                + _bb20.UpperBand + Seperator + _bb20.MiddleBand + Seperator + _bb20.LowerBand
-            );
+                + _ema27 + Seperator + _rsi6 + Seperator + _rsi12 + Seperator + _rsi24 + Seperator
+                + _bb20.UpperBand + Seperator + _bb20.MiddleBand + Seperator + _bb20.LowerBand;
+            Error(messageBody);
+            Publish(messageBody, "consolidate15sInd");
+        }
+
+        public void Publish(string messageBody, string queueName)
+        {
+            using (var connection = connFactory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                // Declaring a queue is idempotent - it will only be created if it doesn't exist already
+                channel.QueueDeclare(queue: queueName,
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+
+                var properties = channel.CreateBasicProperties();
+                // this will mark the msg persistent by writing it to cache and disk
+                properties.Persistent = true;
+
+                // create the message; msg is a byte array, encode whatever u like
+                var body = Encoding.UTF8.GetBytes(messageBody);
+
+                // publish is the key action for producer; send to the queue
+                // the task will only send once. once the task is sent to the queue, it will out of the channel.
+                channel.BasicPublish(exchange: "",
+                                     routingKey: queueName,
+                                     basicProperties: properties,
+                                     body: body);
+
+            }
         }
     }
 }
