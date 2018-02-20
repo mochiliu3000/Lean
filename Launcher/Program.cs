@@ -45,6 +45,7 @@ namespace QuantConnect.Lean.Launcher
             { 
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
             }
+            Market.Add("coinegg", 201);
 
             var environment = Config.Get("environment");
             var liveMode = Config.GetBool("live-mode");

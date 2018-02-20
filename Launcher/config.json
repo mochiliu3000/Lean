@@ -6,16 +6,19 @@
   // two predefined environments, 'backtesting' and 'live', feel free
   // to add more!
 
-  "environment": "live-gdax", // "live-paper", "backtesting", "live-interactive", "live-interactive-iqfeed"
+  // "environment": "live-gdax", // "live-paper", "backtesting", "live-interactive", "live-interactive-iqfeed"
+  "environment": "live-ctp",
 
   // algorithm class selector
-  "algorithm-type-name": "GdaxAlgorithm",
+  // "algorithm-type-name": "GdaxAlgorithm",
+  "algorithm-type-name": "CoinAlgo",
 
   // Algorithm language selector - options CSharp, FSharp, VisualBasic, Python, Java
   "algorithm-language": "CSharp",
 
   //Physical DLL location
-  "algorithm-location": "QuantConnect.Algorithm.CSharp.dll",
+  // "algorithm-location": "QuantConnect.Algorithm.CSharp.dll",
+  "algorithm-location": "../../../CNGateway/bin/Debug/CNGateway.dll",
   //"algorithm-location": "../../../Algorithm.Python/BasicTemplateAlgorithm.py",
   //"algorithm-location": "QuantConnect.Algorithm.FSharp.dll",
   //"algorithm-location": "QuantConnect.Algorithm.VisualBasic.dll",
@@ -267,7 +270,21 @@
       "real-time-handler": "QuantConnect.Lean.Engine.RealTime.LiveTradingRealTimeHandler",
       "transaction-handler": "QuantConnect.Lean.Engine.TransactionHandlers.BrokerageTransactionHandler",
       "history-provider": "BrokerageHistoryProvider"
-    }
+    },
 
+    "live-ctp": {
+      "live-mode": true,
+      // real brokerage implementations require the BrokerageTransactionHandler
+      "live-mode-brokerage": "PaperBrokerage",
+      "setup-handler": "QuantConnect.Lean.Engine.Setup.BrokerageSetupHandler",
+      "result-handler": "QuantConnect.Lean.Engine.Results.LiveTradingResultHandler",
+      "data-feed-handler": "QuantConnect.Lean.Engine.DataFeeds.LiveTradingDataFeed",
+
+      "data-queue-handler": "CNGateway.GatewayDataQueueHandler",
+
+      "real-time-handler": "QuantConnect.Lean.Engine.RealTime.LiveTradingRealTimeHandler",
+      "transaction-handler": "QuantConnect.Lean.Engine.TransactionHandlers.BrokerageTransactionHandler",
+      "history-provider": "BrokerageHistoryProvider"
+    }
   }
 }

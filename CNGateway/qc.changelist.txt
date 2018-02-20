@@ -1,0 +1,3 @@
+﻿1. QCAlgorithm.cs: line 946
+          var market = securityType == SecurityType.Forex ? Market.FXCM : Market.USA;
+ to:        var market = securityType == SecurityType.Forex ? Market.FXCM : Market.CN;
