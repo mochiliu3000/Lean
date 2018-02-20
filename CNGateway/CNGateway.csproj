@@ -35,23 +35,23 @@
     <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\Quant\myLean\Lean\Common\QuantConnect.csproj">
+    <ProjectReference Include="..\Common\QuantConnect.csproj">
       <Project>{2545C0B4-FABB-49C9-8DD1-9AD7EE23F86B}</Project>
       <Name>QuantConnect</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\Quant\myLean\Lean\Algorithm\QuantConnect.Algorithm.csproj">
+    <ProjectReference Include="..\Algorithm\QuantConnect.Algorithm.csproj">
       <Project>{3240ACA4-BDD4-4D24-AC36-BBB651C39212}</Project>
       <Name>QuantConnect.Algorithm</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\Quant\myLean\Lean\Indicators\QuantConnect.Indicators.csproj">
+    <ProjectReference Include="..\Indicators\QuantConnect.Indicators.csproj">
       <Project>{73FB2522-C3ED-4E47-8E3D-AFAD48A6B888}</Project>
       <Name>QuantConnect.Indicators</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\Quant\myLean\Lean\Api\QuantConnect.Api.csproj">
+    <ProjectReference Include="..\Api\QuantConnect.Api.csproj">
       <Project>{C5D44209-49A0-4505-A870-043C5EF5FDDF}</Project>
       <Name>QuantConnect.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\Quant\myLean\Lean\Logging\QuantConnect.Logging.csproj">
+    <ProjectReference Include="..\Logging\QuantConnect.Logging.csproj">
       <Project>{01911409-86BE-4E7D-9947-DF714138610D}</Project>
       <Name>QuantConnect.Logging</Name>
     </ProjectReference>

@@ -10227,7 +10227,7 @@
         "4/14/2017"
       ]
     },
-	"Crypto-coinegg-[*]": {}
+    "Crypto-coinegg-[*]": {},
     "Crypto-gdax-[*]": {
       "dataTimeZone": "UTC",
       "exchangeTimeZone": "UTC",

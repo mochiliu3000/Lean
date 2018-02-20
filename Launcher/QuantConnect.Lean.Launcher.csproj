@@ -126,6 +126,10 @@
       <Project>{ac9a142c-b485-44d7-91ff-015c22c43d05}</Project>
       <Name>QuantConnect.ToolBox</Name>
     </ProjectReference>
+	<ProjectReference Include="..\CNGateway\CNGateway.csproj">
+      <Project>{2E24AA0B-ED43-471B-BA8B-FDF7406A07E7}</Project>
+      <Name>CNGateway</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
