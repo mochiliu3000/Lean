@@ -65,6 +65,7 @@ namespace CNGateway
                     //Console.WriteLine(vJson);
                     newtick = crJson.ToTick();
                     //Console.WriteLine(newtick);
+
                     break;
 
 
@@ -75,7 +76,7 @@ namespace CNGateway
             }
 
             Console.WriteLine("QC tick: Symbol:'{0}' Time: '{1}' Quantity:'{2}'", 
-                              newtick.Symbol.Value, newtick.Time.ToString(), newtick.Quantity);
+                              newtick.Symbol.Value, newtick.Time, newtick.Quantity);
 
             return newtick;
 
@@ -92,6 +93,8 @@ namespace CNGateway
         public decimal vol { get; set; }
         public decimal high { get; set; }
         public decimal low { get; set; }
+        public string code { get; set; }
+        public long time { get; set; }
 
         public Tick ToTick()
         {
@@ -100,8 +103,9 @@ namespace CNGateway
             {
                 newtick = new Tick()
                 {
-                    Symbol = QuantConnect.Symbol.Create("eth", SecurityType.Equity, "crypto"),
-                    Time = DateTime.UtcNow,
+                    // NOTE: Add "USD" for Lean to addCachBook, make sure the code's length is 3
+                    Symbol = QuantConnect.Symbol.Create(code + "USD", SecurityType.Crypto, "coinegg"),
+                    Time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(time * 1000).ToLocalTime(),
                     Value = last,
                     BidPrice = 0.0m,
                     AskPrice = 1.0m,
@@ -113,7 +117,6 @@ namespace CNGateway
                     TickType = TickType.Trade,
                     BidSize = 1.0m,
                     AskSize = 1.0m
-
 
                 };
             }

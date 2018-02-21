@@ -26,7 +26,7 @@ namespace CNGateway
     public class CoinAlgo : QCAlgorithm
     {
 
-        private Symbol _sec = QuantConnect.Symbol.Create("eth", SecurityType.Crypto, "coinegg");
+        private Symbol _sec = QuantConnect.Symbol.Create("ETHUSD", SecurityType.Crypto, "coinegg");
 
         // we place attributes on top of our fields or properties that should receive
         // their values from the job. The values 100 and 200 are just default values that
@@ -44,7 +44,7 @@ namespace CNGateway
         {
            
             //SetTimeZone(TimeZones.Shanghai);
-            AddSecurity(SecurityType.Crypto, "eth", Resolution.Tick, "coinegg", true, 0, false);
+            AddCrypto("ETHUSD", Resolution.Tick, "coinegg");
 
             SetStartDate(2017, 1, 1);
             SetEndDate(2018, 2, 16);

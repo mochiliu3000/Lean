@@ -104,7 +104,8 @@ namespace CNGateway
                 (securityType == SecurityType.Equity) ||
                 (securityType == SecurityType.Forex && market == Market.FXCM) ||
                 (securityType == SecurityType.Option && market == Market.USA) ||
-                (securityType == SecurityType.Future);
+                (securityType == SecurityType.Future)
+                || (securityType == SecurityType.Crypto);
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace CNGateway
 
 			//Convert to string message to print
 			var strMessage = Encoding.UTF8.GetString(body);
-            //Console.WriteLine("[x] Received '{0}' Message:'{1}'",routingKey, strMessage);
+            Console.WriteLine("[x] Received '{0}' Message:'{1}'",routingKey, strMessage);
 
             Tick tick = jp.ParseJson(strMessage, routingKey);
 
@@ -153,12 +154,12 @@ namespace CNGateway
             ExchangeName = "ticker";
             jp = new JsonParser("crypto");
 
-            factory.UserName = "ctp";
-            factory.Password = "ctp";
+            //factory.UserName = "ctp";
+            //factory.Password = "ctp";
             factory.VirtualHost = "/";
             //factory.Protocol = Protocols.FromEnvironment();
-            //factory.HostName = "192.168.199.164";
-            factory.HostName = "localhost";
+            factory.HostName = "47.88.154.109";
+            //factory.HostName = "localhost";
             factory.Port = AmqpTcpEndpoint.UseDefaultPort;
 
             IConnection connection = factory.CreateConnection();
@@ -201,8 +202,8 @@ namespace CNGateway
                                  autoAck: true,
                                  consumer: consumer);
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
+            //Console.WriteLine(" Press [enter] to exit.");
+            //Console.ReadLine();
 
         }
     }

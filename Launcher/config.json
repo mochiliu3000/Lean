@@ -18,7 +18,7 @@
 
   //Physical DLL location
   // "algorithm-location": "QuantConnect.Algorithm.CSharp.dll",
-  "algorithm-location": "../../../CNGateway/bin/Debug/CNGateway.dll",
+  "algorithm-location": "CNGateway.dll",
   //"algorithm-location": "../../../Algorithm.Python/BasicTemplateAlgorithm.py",
   //"algorithm-location": "QuantConnect.Algorithm.FSharp.dll",
   //"algorithm-location": "QuantConnect.Algorithm.VisualBasic.dll",
